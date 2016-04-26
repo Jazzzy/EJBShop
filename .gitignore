@@ -12,3 +12,10 @@
 hs_err_pid*
 /NetBeansProject_EBJShop/build/
 /NetBeansProject_EBJShop/dist/
+/NBProject_EJBShop/nbproject/private/
+/NBProject_EJBShop/NBProject_EJBShop-war/nbproject/private/
+/NBProject_EJBShop/NBProject_EJBShop-ejb/nbproject/private/
+/NBProject_EJBShop/NBProject_EJBShop-ejb/dist/
+/NBProject_EJBShop/NBProject_EJBShop-war/build/
+/NBProject_EJBShop/NBProject_EJBShop-war/dist/
+/NBProject_EJBShop/build/
