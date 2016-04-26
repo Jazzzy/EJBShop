@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import controlador.PaqueteHelperCarrito.*;
 import controlador.PaqueteHelperPago.*;
 import controlador.PaqueteHelperPrincipal.*;
+import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import modelo.Usuario;
@@ -17,6 +18,17 @@ import modelo.Usuario;
 @WebServlet (name = "Controlador",urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
+    @EJB
+    private EJBModelo.EJBUsuario usuario;
+    /**
+     * TODO
+     * 
+     * crear ejb carrito e acceder a usuario desde aqui ca turbo injection esta
+     * 
+     * 
+     * 
+     * 
+    */
     private Helper helper;
 
     public static String path;
@@ -35,9 +47,9 @@ public class Controlador extends HttpServlet {
             sesion = request.getSession(true);
         }
 
-        if (sesion.getAttribute("usuario") == null) {
-            request.getSession().setAttribute("usuario", new Usuario());
-        }
+//        if (sesion.getAttribute("usuario") == null) {
+//            request.getSession().setAttribute("usuario", new Usuario());
+//        }
 
         /*Por lo tanto esta parte de arriba es susceptible a cambios*/
         String action = request.getParameter("action");
