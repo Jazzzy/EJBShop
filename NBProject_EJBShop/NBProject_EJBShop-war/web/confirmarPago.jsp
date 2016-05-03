@@ -26,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="lp" items="${requestScope.pedido.lineasPedido}">
+                <c:forEach var="lp" items="${sessionScope.pedido.lineasPedido}">
                     <tr>
                         <td>${lp.producto.nombre}</td>
                         <td>${lp.producto.autor}</td>
@@ -38,9 +38,9 @@
                 </c:forEach>
             </tbody>
         </table>
-        <p>Precio Total: <fmt:formatNumber type="currency" scope="page" var="valorPrecioFinal" value="${requestScope.pedido.precioTotal}"/>${pageScope.valorPrecioFinal}</p>
-        <p>Nombre: ${requestScope.pedido.usuario.nombre}</p>
-        <p>Correo Electrónico: ${requestScope.pedido.usuario.correoElectronico}</p>
+        <p>Precio Total: <fmt:formatNumber type="currency" scope="page" var="valorPrecioFinal" value="${sessionScope.pedido.precioTotal}"/>${pageScope.valorPrecioFinal}</p>
+        <p>Nombre: ${sessionScope.pedido.usuario.nombre}</p>
+        <p>Correo Electrónico: ${sessionScope.pedido.usuario.correoElectronico}</p>
 
 
         <form action="Controlador" method="POST" >

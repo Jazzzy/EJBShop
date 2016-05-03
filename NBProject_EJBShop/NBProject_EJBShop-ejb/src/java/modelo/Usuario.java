@@ -1,7 +1,11 @@
 package modelo;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 @Stateful
 public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
@@ -19,7 +23,14 @@ public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
     }
 
     public Usuario() {//Crea el carrito para si mismo
-        this.carrito = new Carrito();
+        InitialContext ic;
+        try {
+            ic = new InitialContext();
+            this.carrito = (CarritoInterfazLocal) ic.lookup("java:comp/env/carrito");
+        } catch (NamingException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     public String getNombre() {

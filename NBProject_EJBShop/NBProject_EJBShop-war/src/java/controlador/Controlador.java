@@ -10,17 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import controlador.PaqueteHelperCarrito.*;
 import controlador.PaqueteHelperPago.*;
 import controlador.PaqueteHelperPrincipal.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
+import modelo.Usuario;
 import modelo.UsuarioInterfazLocal;
-import org.jboss.weld.servlet.SessionHolder;
 
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
-
-    @EJB
-    private UsuarioInterfazLocal usuario;
 
     /**
      * TODO
@@ -49,9 +50,20 @@ public class Controlador extends HttpServlet {
             sesion = request.getSession(true);
         }
 
-//        if (sesion.getAttribute("usuario") == null) {
-//            request.getSession().setAttribute("usuario", new Usuario());
-//        }
+        if (sesion.getAttribute("usuario") == null) {
+            UsuarioInterfazLocal usuario = null;
+
+            InitialContext ic;
+            try {
+                ic = new InitialContext();
+                usuario = (UsuarioInterfazLocal) ic.lookup("java:comp/env/usuario");
+            } catch (NamingException ex) {
+                Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           
+            request.getSession().setAttribute("usuario", usuario);
+        }
 
         /*Por lo tanto esta parte de arriba es susceptible a cambios*/
         String action = request.getParameter("action");
@@ -66,34 +78,22 @@ public class Controlador extends HttpServlet {
             switch (action) {
                 case ("anadirItem"):
 
-                    helper = new HelperAnadirLineaCarrito(usuario, Integer.parseInt(request.getParameter("producto")), Integer.parseInt(request.getParameter("cantidad")));
+                    helper = new HelperAnadirLineaCarrito((UsuarioInterfazLocal) sesion.getAttribute("usuario"), Integer.parseInt(request.getParameter("producto")), Integer.parseInt(request.getParameter("cantidad")));
                     helper.ejecutar();
-
-                    //DUDAMOS AQUI
-                    request.setAttribute("carrito", usuario.getCarrito());
-
                     goToPage("/carrito.jsp", request, response);
                     break;
 
                 case ("eliminarLinea"):
 
-                    helper = new HelperEliminarLineaCarrito(usuario, Integer.parseInt(request.getParameter("idEliminar")));
+                    helper = new HelperEliminarLineaCarrito((UsuarioInterfazLocal) sesion.getAttribute("usuario"), Integer.parseInt(request.getParameter("idEliminar")));
                     helper.ejecutar();
-
-                    //DUDAMOS AQUI
-                    request.setAttribute("carrito", usuario.getCarrito());
-
                     goToPage("/carrito.jsp", request, response);
                     break;
 
                 case ("irAlCarrito"):
 
-                    helper = new HelperMostrarCarrito(usuario);
+                    helper = new HelperMostrarCarrito((UsuarioInterfazLocal) sesion.getAttribute("usuario"));
                     helper.ejecutar();
-
-                    //DUDAMOS AQUI
-                    request.setAttribute("carrito", usuario.getCarrito());
-
                     goToPage("/carrito.jsp", request, response);
                     break;
 
@@ -105,14 +105,10 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case ("mostrarVentanaDePago"):
-
+                    UsuarioInterfazLocal usuario = (UsuarioInterfazLocal) sesion.getAttribute("usuario");
                     if (usuario.getCarrito().getLineasCarrito().size() > 0) {
-                        helper = new HelperMostrarVentanaDePago(usuario);
+                        helper = new HelperMostrarVentanaDePago((UsuarioInterfazLocal) sesion.getAttribute("usuario"));
                         helper.ejecutar();
-
-                        //DUDAMOS AQUI
-                        request.setAttribute("carrito", usuario.getCarrito());
-
                         goToPage("/pagando.jsp", request, response);
                     } else {
                         helper = new HelperMostrarPrincipal(request);
@@ -123,18 +119,14 @@ public class Controlador extends HttpServlet {
 
                 case ("insertarDatosPedido"):
 
-                    helper = new HelperRealizarPago(request.getSession(), usuario, request.getParameter("nombreDeUsuario"), request.getParameter("email"));
+                    helper = new HelperRealizarPago(request.getSession(), (UsuarioInterfazLocal) sesion.getAttribute("usuario"), request.getParameter("nombreDeUsuario"), request.getParameter("email"));
                     helper.ejecutar();
-
-                    //DUDAMOS AQUI
-                    request.setAttribute("pedido", request.getSession().getAttribute("pedido"));
-
                     goToPage("/confirmarPago.jsp", request, response);
                     break;//confirmarPago    
 
                 case ("confirmarPago"):
 
-                    helper = new HelperConfirmarPago(usuario, request.getSession(), request);
+                    helper = new HelperConfirmarPago(request.getSession(), request);
                     helper.ejecutar();
                     goToPage("/exitoEnElPago.jsp", request, response);
                     break;

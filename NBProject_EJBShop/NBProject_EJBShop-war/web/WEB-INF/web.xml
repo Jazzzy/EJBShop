@@ -20,4 +20,16 @@
         <welcome-file>Controlador</welcome-file>
     </welcome-file-list>
     
+    <ejb-local-ref>
+        <ejb-ref-name>usuario</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>modelo.UsuarioInterfazLocal</local>
+    </ejb-local-ref>
+    
+    <ejb-local-ref>
+        <ejb-ref-name>carrito</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local>modelo.CarritoInterfazLocal</local>
+    </ejb-local-ref>
+    
 </web-app>

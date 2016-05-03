@@ -28,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="lc" items="${requestScope.carrito.lineasCarrito}">
+                    <c:forEach var="lc" items="${sessionScope.usuario.carrito.lineasCarrito}">
                         <tr>
                             <td>${lc.producto.nombre}</td>
                             <td>${lc.producto.autor}</td>
