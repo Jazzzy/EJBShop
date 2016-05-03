@@ -13,32 +13,34 @@ import controlador.PaqueteHelperPrincipal.*;
 import javax.ejb.EJB;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
-import modelo.Usuario;
+import modelo.UsuarioInterfazLocal;
+import org.jboss.weld.servlet.SessionHolder;
 
-@WebServlet (name = "Controlador",urlPatterns = {"/Controlador"})
+@WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
 
     @EJB
-    private EJBModelo.EJBUsuario usuario;
+    private UsuarioInterfazLocal usuario;
+
     /**
      * TODO
-     * 
+     *
      * crear ejb carrito e acceder a usuario desde aqui ca turbo injection esta
-     * 
-     * 
-     * 
-     * 
-    */
+     *
+     *
+     *
+     *
+     */
     private Helper helper;
 
     public static String path;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         //Ruta del archivo de los datos para que sea accesible desde cualquier sitio
         path = request.getServletContext().getRealPath("/WEB-INF/classes/resources/productos.txt");
-        
+
         /*Miramos si tanto la sesión como nuestro usuario están creados
          Ya que en esta aplicación suponemos que el usuario ya está registrado
          */
@@ -64,22 +66,34 @@ public class Controlador extends HttpServlet {
             switch (action) {
                 case ("anadirItem"):
 
-                    helper = new HelperAnadirLineaCarrito((Usuario) sesion.getAttribute("usuario"), Integer.parseInt(request.getParameter("producto")), Integer.parseInt(request.getParameter("cantidad")));
+                    helper = new HelperAnadirLineaCarrito(usuario, Integer.parseInt(request.getParameter("producto")), Integer.parseInt(request.getParameter("cantidad")));
                     helper.ejecutar();
+
+                    //DUDAMOS AQUI
+                    request.setAttribute("carrito", usuario.getCarrito());
+
                     goToPage("/carrito.jsp", request, response);
                     break;
 
                 case ("eliminarLinea"):
 
-                    helper = new HelperEliminarLineaCarrito((Usuario) sesion.getAttribute("usuario"), Integer.parseInt(request.getParameter("idEliminar")));
+                    helper = new HelperEliminarLineaCarrito(usuario, Integer.parseInt(request.getParameter("idEliminar")));
                     helper.ejecutar();
+
+                    //DUDAMOS AQUI
+                    request.setAttribute("carrito", usuario.getCarrito());
+
                     goToPage("/carrito.jsp", request, response);
                     break;
 
                 case ("irAlCarrito"):
 
-                    helper = new HelperMostrarCarrito((Usuario) sesion.getAttribute("usuario"));
+                    helper = new HelperMostrarCarrito(usuario);
                     helper.ejecutar();
+
+                    //DUDAMOS AQUI
+                    request.setAttribute("carrito", usuario.getCarrito());
+
                     goToPage("/carrito.jsp", request, response);
                     break;
 
@@ -91,10 +105,14 @@ public class Controlador extends HttpServlet {
                     break;
 
                 case ("mostrarVentanaDePago"):
-                    Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+
                     if (usuario.getCarrito().getLineasCarrito().size() > 0) {
-                        helper = new HelperMostrarVentanaDePago((Usuario) sesion.getAttribute("usuario"));
+                        helper = new HelperMostrarVentanaDePago(usuario);
                         helper.ejecutar();
+
+                        //DUDAMOS AQUI
+                        request.setAttribute("carrito", usuario.getCarrito());
+
                         goToPage("/pagando.jsp", request, response);
                     } else {
                         helper = new HelperMostrarPrincipal(request);
@@ -105,14 +123,18 @@ public class Controlador extends HttpServlet {
 
                 case ("insertarDatosPedido"):
 
-                    helper = new HelperRealizarPago(request.getSession(), (Usuario) sesion.getAttribute("usuario"), request.getParameter("nombreDeUsuario"), request.getParameter("email"));
+                    helper = new HelperRealizarPago(request.getSession(), usuario, request.getParameter("nombreDeUsuario"), request.getParameter("email"));
                     helper.ejecutar();
+
+                    //DUDAMOS AQUI
+                    request.setAttribute("pedido", request.getSession().getAttribute("pedido"));
+
                     goToPage("/confirmarPago.jsp", request, response);
                     break;//confirmarPago    
 
                 case ("confirmarPago"):
 
-                    helper = new HelperConfirmarPago(request.getSession(), request);
+                    helper = new HelperConfirmarPago(usuario, request.getSession(), request);
                     helper.ejecutar();
                     goToPage("/exitoEnElPago.jsp", request, response);
                     break;

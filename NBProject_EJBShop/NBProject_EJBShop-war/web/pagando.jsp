@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="lc" items="${sessionScope.usuario.carrito.lineasCarrito}">
+                    <c:forEach var="lc" items="${requestScope.carrito.lineasCarrito}">
                         <tr>
                             <td>${lc.producto.nombre}</td>
                             <td>${lc.producto.autor}</td>
@@ -40,7 +40,7 @@
                     </c:forEach>
                 </tbody>
             </table>
-            <p>Precio Total: <fmt:formatNumber type="currency" scope="page" var="valorPrecioFinal" value="${sessionScope.usuario.carrito.precioTotal}"/>${pageScope.valorPrecioFinal}</p>
+            <p>Precio Total: <fmt:formatNumber type="currency" scope="page" var="valorPrecioFinal" value="${requestScope.carrito.precioTotal}"/>${pageScope.valorPrecioFinal}</p>
             <br>
             <label for="nombreDeUsuario">Nombre de usuario</label>
             <input type="text" id="nombreDeUsuario" name="nombreDeUsuario" required autofocus pattern="^[a-zA-Z0-9_-]{3,16}$">

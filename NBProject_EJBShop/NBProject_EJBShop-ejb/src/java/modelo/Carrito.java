@@ -1,8 +1,10 @@
 package modelo;
 
 import java.util.ArrayList;
+import javax.ejb.Stateful;
 
-public class Carrito {
+@Stateful
+public class Carrito implements CarritoInterfazLocal, CarritoInterfazRemota {
 
     private ArrayList<LineaCarrito> lineasCarrito;
     private float precioTotal;
@@ -86,6 +88,12 @@ public class Carrito {
 
     public float getPrecioTotal() {
         return precioTotal;
+    }
+
+    @Override
+    public void vaciarCarrito() {
+        this.lineasCarrito.clear();
+        this.actualizarPrecioTotal();
     }
 
 }

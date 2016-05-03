@@ -1,21 +1,23 @@
 package controlador.PaqueteHelperCarrito;
 
 import modelo.Carrito;
+import modelo.CarritoInterfazLocal;
 import modelo.TiendaAuxiliarArchivo;
 import modelo.Usuario;
+import modelo.UsuarioInterfazLocal;
 
 
 public class HelperMostrarCarrito implements controlador.Helper {
 
-    private Usuario usuario;
+    private UsuarioInterfazLocal usuario;
 
-    public HelperMostrarCarrito(Usuario usuario) {
+    public HelperMostrarCarrito(UsuarioInterfazLocal usuario) {
         this.usuario = usuario;
     }
 
     public void ejecutar() {
 
-        Carrito carrito = usuario.getCarrito();
+        CarritoInterfazLocal carrito = usuario.getCarrito();
         carrito.actualizar(new TiendaAuxiliarArchivo(controlador.Controlador.path));
         
     }

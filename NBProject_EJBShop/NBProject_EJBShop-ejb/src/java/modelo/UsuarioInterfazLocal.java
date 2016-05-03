@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package EJBModelo;
+package modelo;
 
 import javax.ejb.Local;
 
@@ -12,14 +12,18 @@ import javax.ejb.Local;
  * @author gladi
  */
 @Local
-public interface EJBUsuarioLocal {
+public interface UsuarioInterfazLocal {
+
+    public String getNombre();
+
+    public void setNombre(String nombre);
+
+    public String getCorreoElectronico();
 
     public void setCorreoElectronico(String correoElectronico);
 
-    public void setNombre(String nombre);
-    
-    public String getNombre();
-    
-    public String getCorreoElectronico();
+    public CarritoInterfazLocal getCarrito();
+
+    public void setCarrito(CarritoInterfazLocal carrito); //TODO meter interfaz local de carrito
 
 }

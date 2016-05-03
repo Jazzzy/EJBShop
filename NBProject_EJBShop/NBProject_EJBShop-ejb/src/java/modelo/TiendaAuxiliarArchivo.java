@@ -19,7 +19,6 @@ public class TiendaAuxiliarArchivo extends Tienda {
 //    public TiendaAuxiliarArchivo() {
 //        this.leerProductos(this.productosDisponibles, controlador.Controlador.path);
 //    }
-
     public TiendaAuxiliarArchivo(String path) {
         if (this.leerProductos(this.productosDisponibles, path) == false) {
             //Error
