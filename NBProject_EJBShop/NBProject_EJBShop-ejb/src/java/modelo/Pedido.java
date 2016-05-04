@@ -9,27 +9,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "pedidos")
+
 public class Pedido {
 
     private ArrayList<LineaPedido> lineasPedido;
     private UsuarioInterfazLocal usuario;
 
     //To be mapped into database
-    @Column
+
     private float precioTotal;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
-    private Integer id;
-
-    @Column
-    private String nombreUsuario;
-
-    @Column
-    private Date fecha;
 
     public Pedido(Tienda tienda, UsuarioInterfazLocal usuario) {
 
@@ -49,11 +38,8 @@ public class Pedido {
             this.lineasPedido.add(new LineaPedido(lc));
         }
 
-        
-        //Poblamos los atributos a meter en la base de datos
         this.precioTotal = carrito.getPrecioTotal();
-        this.nombreUsuario = usuario.getNombre();
-        this.fecha = new Date();
+        
     }
 
     public ArrayList<LineaPedido> getLineasPedido() {
@@ -67,5 +53,7 @@ public class Pedido {
     public float getPrecioTotal() {
         return precioTotal;
     }
+    
+    
 
 }

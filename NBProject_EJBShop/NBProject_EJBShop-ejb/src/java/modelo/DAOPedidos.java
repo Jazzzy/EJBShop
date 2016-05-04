@@ -6,6 +6,7 @@
 package modelo;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
@@ -15,5 +16,13 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class DAOPedidos {
+    
+    @PersistenceContext(unitName = "pu1")
+    protected EntityManager em;
+    
+    public void insertarPedido(VOPedido pedido){
+    
+        em.persist(pedido);
+    }
     
 }

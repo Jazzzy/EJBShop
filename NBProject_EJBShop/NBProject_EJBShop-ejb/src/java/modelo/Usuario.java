@@ -12,8 +12,7 @@ public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
 
     private String nombre;
     private String correoElectronico;
-
-    @EJB
+    //@EJB
     private CarritoInterfazLocal carrito;
 
     public Usuario(String nombre, String correoElectronico, Carrito carrito) {
@@ -30,7 +29,6 @@ public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
         } catch (NamingException ex) {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public String getNombre() {

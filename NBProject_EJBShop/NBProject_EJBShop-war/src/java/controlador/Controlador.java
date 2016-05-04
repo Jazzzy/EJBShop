@@ -17,6 +17,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
+import modelo.DAOPedidos;
 import modelo.Usuario;
 import modelo.UsuarioInterfazLocal;
 
@@ -32,6 +33,10 @@ public class Controlador extends HttpServlet {
      *
      *
      */
+    
+    @EJB
+    DAOPedidos daopedidos;
+    
     private Helper helper;
 
     public static String path;
@@ -126,7 +131,7 @@ public class Controlador extends HttpServlet {
 
                 case ("confirmarPago"):
 
-                    helper = new HelperConfirmarPago(request.getSession(), request);
+                    helper = new HelperConfirmarPago(daopedidos,request.getSession(), request);
                     helper.ejecutar();
                     goToPage("/exitoEnElPago.jsp", request, response);
                     break;
