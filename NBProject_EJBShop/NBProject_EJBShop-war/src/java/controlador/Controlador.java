@@ -18,6 +18,7 @@ import javax.naming.NamingException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpSession;
 import modelo.DAOPedidos;
+import modelo.DAOPedidosInterfazLocal;
 import modelo.Usuario;
 import modelo.UsuarioInterfazLocal;
 
@@ -35,7 +36,7 @@ public class Controlador extends HttpServlet {
      */
     
     @EJB
-    DAOPedidos daopedidos;
+    DAOPedidosInterfazLocal daopedidos;
     
     private Helper helper;
 

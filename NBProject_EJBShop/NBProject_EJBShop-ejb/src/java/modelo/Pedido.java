@@ -23,7 +23,7 @@ public class Pedido {
     public Pedido(Tienda tienda, UsuarioInterfazLocal usuario) {
 
         this.usuario = usuario;
-        CarritoInterfazLocal carrito = usuario.getCarrito();
+        Carrito carrito = usuario.getCarrito();
         /*Antes de crear el pedido actualizamos todos los datos
          del carrito para tener información correcta*/
         carrito.actualizar(tienda);

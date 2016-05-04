@@ -1,7 +1,6 @@
 package controlador.PaqueteHelperCarrito;
 
 import modelo.Carrito;
-import modelo.CarritoInterfazLocal;
 import modelo.LineaCarrito;
 import modelo.Producto;
 import modelo.Tienda;
@@ -27,7 +26,7 @@ public class HelperAnadirLineaCarrito implements controlador.Helper {
         Producto producto = tienda.getProductoById(idProducto);
 
         if (producto != null) {
-            CarritoInterfazLocal carrito = usuario.getCarrito();
+            Carrito carrito = usuario.getCarrito();
             carrito.insertarLinea(new LineaCarrito(producto, cantidad));
         }
 

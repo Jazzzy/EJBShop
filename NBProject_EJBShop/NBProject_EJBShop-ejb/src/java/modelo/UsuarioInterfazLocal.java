@@ -22,8 +22,8 @@ public interface UsuarioInterfazLocal {
 
     public void setCorreoElectronico(String correoElectronico);
 
-    public CarritoInterfazLocal getCarrito();
+    public Carrito getCarrito();
 
-    public void setCarrito(CarritoInterfazLocal carrito); //TODO meter interfaz local de carrito
+    public void setCarrito(Carrito carrito); //TODO meter interfaz local de carrito
 
 }

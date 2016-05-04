@@ -13,7 +13,7 @@ public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
     private String nombre;
     private String correoElectronico;
     //@EJB
-    private CarritoInterfazLocal carrito;
+    private Carrito carrito;
 
     public Usuario(String nombre, String correoElectronico, Carrito carrito) {
         this.nombre = nombre;
@@ -22,13 +22,7 @@ public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
     }
 
     public Usuario() {//Crea el carrito para si mismo
-        InitialContext ic;
-        try {
-            ic = new InitialContext();
-            this.carrito = (CarritoInterfazLocal) ic.lookup("java:comp/env/carrito");
-        } catch (NamingException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.carrito = new Carrito();
     }
 
     public String getNombre() {
@@ -47,11 +41,11 @@ public class Usuario implements UsuarioInterfazLocal, UsuarioInterfazRemota {
         this.correoElectronico = correoElectronico;
     }
 
-    public CarritoInterfazLocal getCarrito() {
+    public Carrito getCarrito() {
         return carrito;
     }
 
-    public void setCarrito(CarritoInterfazLocal carrito) {
+    public void setCarrito(Carrito carrito) {
         this.carrito = carrito;
     }
 

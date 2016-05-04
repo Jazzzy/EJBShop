@@ -1,7 +1,6 @@
 package controlador.PaqueteHelperCarrito;
 
 import modelo.Carrito;
-import modelo.CarritoInterfazLocal;
 import modelo.TiendaAuxiliarArchivo;
 import modelo.Usuario;
 import modelo.UsuarioInterfazLocal;
@@ -17,7 +16,7 @@ public class HelperEliminarLineaCarrito implements controlador.Helper {
     }
 
     public void ejecutar() {
-        CarritoInterfazLocal carrito = usuario.getCarrito();
+        Carrito carrito = usuario.getCarrito();
         carrito.eliminarLineaById(idProducto);
         carrito.actualizar(new TiendaAuxiliarArchivo(controlador.Controlador.path));
     }

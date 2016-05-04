@@ -12,6 +12,6 @@ import javax.ejb.Remote;
  * @author gladi
  */
 @Remote
-public interface CarritoInterfazRemota {
-
+public interface DAOPedidosInterfazRemota {
+    
 }

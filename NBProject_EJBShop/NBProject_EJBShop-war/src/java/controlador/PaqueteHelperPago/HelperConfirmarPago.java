@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import modelo.Carrito;
 import modelo.DAOPedidos;
+import modelo.DAOPedidosInterfazLocal;
 import modelo.Pedido;
 import modelo.Usuario;
 import modelo.UsuarioInterfazLocal;
@@ -22,9 +23,9 @@ public class HelperConfirmarPago implements controlador.Helper {
 
     private HttpSession sesion;
     private HttpServletRequest request;
-    private DAOPedidos daop;
+    private DAOPedidosInterfazLocal daop;
 
-    public HelperConfirmarPago(DAOPedidos daop, HttpSession sesion, HttpServletRequest request) {
+    public HelperConfirmarPago(DAOPedidosInterfazLocal daop, HttpSession sesion, HttpServletRequest request) {
         this.sesion = sesion;
         this.request = request;
         this.daop = daop;

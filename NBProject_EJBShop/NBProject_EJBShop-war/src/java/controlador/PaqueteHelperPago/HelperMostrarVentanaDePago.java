@@ -1,7 +1,6 @@
 package controlador.PaqueteHelperPago;
 
 import modelo.Carrito;
-import modelo.CarritoInterfazLocal;
 import modelo.TiendaAuxiliarArchivo;
 import modelo.Usuario;
 import modelo.UsuarioInterfazLocal;
@@ -16,7 +15,7 @@ public class HelperMostrarVentanaDePago implements controlador.Helper {
 
     public void ejecutar() {
 
-        CarritoInterfazLocal carrito = usuario.getCarrito();
+        Carrito carrito = usuario.getCarrito();
         carrito.actualizar(new TiendaAuxiliarArchivo(controlador.Controlador.path));
 
     }
