@@ -1,4 +1,4 @@
-# source  C:/Users/gladi/Documents/GitHub/gestionBibliotecaISO/baseDeDatos/createDatabase.sql;
+# source  C:/Users/gladi/Documents/GitHub/EJBShop/database/createDatabase.sql;
 
 
 DROP DATABASE EJBtienda;

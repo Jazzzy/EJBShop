@@ -23,7 +23,6 @@ public class DAOPedidos implements DAOPedidosInterfazLocal, DAOPedidosInterfazRe
     @Override
     public void insertarPedido(VOPedido pedido) {
 
-        
         EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("pu1");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();

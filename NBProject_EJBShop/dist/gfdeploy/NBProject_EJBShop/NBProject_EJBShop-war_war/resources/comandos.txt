@@ -1,3 +1,0 @@
-(En el directorio classes) javac -cp %SAPI% controlador/*.java modelo/*.java controlador/PaqueteHelperCarrito/*.java controlador/PaqueteHelperPago/*.java controlador/PaqueteHelperPrincipal/*.java
-
-(En el directorio raiz) jar -cvf tiendasimple.war *
